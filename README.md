@@ -1,1 +1,6 @@
 # caliel-logger
+
+This is a way for alternant to not scan the qr code.
+
+First get the cookie by loging into caliel with "remember me" then look into your browser to get the REMEMBERME cookie
+You do a cron job
