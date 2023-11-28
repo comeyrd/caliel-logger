@@ -17,3 +17,11 @@ cd /path/to/your/directory
 # Run the first Python script
 
 python3.11 myfile.py
+
+Mon
+Tue
+Wed
+Thu
+Fri
+Sat
+Sun

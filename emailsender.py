@@ -17,7 +17,6 @@ def send_email(body,receivermail):
         server.starttls()
         # Login to the email account
         server.login(os.getenv('SENDER_MAIL'), os.getenv('SENDER_PASS'))
-        
         # Send the email
         server.sendmail(os.getenv('SENDER_MAIL'), receivermail, message.as_string())
     print("Email sent successfully!")
