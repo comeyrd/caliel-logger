@@ -1,16 +1,20 @@
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+from email.utils import make_msgid
 from dotenv import load_dotenv
 import os
 load_dotenv()
 
-def send_email(body,receivermail):
+def send_email(body,receivermail,lastmail):
     message = MIMEMultipart()
     message['From'] = os.getenv('SENDER_MAIL')
     message['To'] = receivermail
     message['Subject'] = "Passage Caliel"
     message.attach(MIMEText(body, 'html'))  # Use 'html' for HTML content
+    if lastmail:
+        message['In-Reply-To'] = lastmail
+        message['References'] = lastmail
     # Connect to the SMTP server
     with smtplib.SMTP(os.getenv('SENDER_SMTP'), 587) as server:
         # Start the TLS connection
@@ -18,5 +22,8 @@ def send_email(body,receivermail):
         # Login to the email account
         server.login(os.getenv('SENDER_MAIL'), os.getenv('SENDER_PASS'))
         # Send the email
+        message["Message-ID"]=make_msgid()
         server.sendmail(os.getenv('SENDER_MAIL'), receivermail, message.as_string())
-    print("Email sent successfully!")
+        print("Email sent successfully!")
+        return message['Message-ID']
+        
