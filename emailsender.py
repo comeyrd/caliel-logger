@@ -8,7 +8,9 @@ load_dotenv()
 
 def send_email(body,receivermail,lastmail):
     message = MIMEMultipart()
-    message['From'] = os.getenv('SENDER_MAIL')
+    sender_name = "Miti Cron"  # Change this to the desired name
+    sender_email = os.getenv('SENDER_MAIL')
+    message['From'] = f"{sender_name} <{sender_email}>"
     message['To'] = receivermail
     message['Subject'] = "Passage Caliel"
     message.attach(MIMEText(body, 'html'))  # Use 'html' for HTML content
