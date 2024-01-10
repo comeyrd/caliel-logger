@@ -7,9 +7,9 @@ import json
 
 
 #Recuperation du lien du QR code
-#r_qrcode = requests.get("https://api.jsonbin.io/v3/b/651934d454105e766fbc305e/latest?meta=false")
-#link_qr = (r_qrcode.json()).get("url")
-link_qr = "https://www.caliel.fr/book/liste"
+r_qrcode = requests.get("https://api.jsonbin.io/v3/b/651934d454105e766fbc305e/latest?meta=false")
+link_qr = (r_qrcode.json()).get("url")
+#link_qr = "https://www.caliel.fr/book/liste"
 
 try:
     lastmail = json.load(open('lastmail.json', 'r'))
@@ -22,7 +22,7 @@ with open('loggers.json', 'r') as file:
     for item in data:
         if is_today_in_list(item["days"]):
             cookies = {'REMEMBERME':item["cookie"]} 
-            #time.sleep(wait)
+            time.sleep(wait)
             if not lastmail.get(item["id"]):
                 lastmail[item["id"]] = ""
             r = requests.get(link_qr,cookies=cookies)
