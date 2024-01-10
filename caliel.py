@@ -2,7 +2,7 @@ import requests
 import time
 import random
 from emailsender import send_email
-from log import writelog,is_today_in_list
+from log import writelog,is_today_in_list,process_message
 import json
 
 
@@ -27,5 +27,5 @@ with open('loggers.json', 'r') as file:
                 lastmail[item["id"]] = ""
             r = requests.get(link_qr,cookies=cookies)
             newlastmail[item["id"]] = send_email(r.text,item["mail"],lastmail[item["id"]])
-            writelog(item["id"],r.status_code)
+            writelog(item["id"],process_message(r.text))
 json.dump(newlastmail, open('lastmail.json', 'w'), indent=2)
