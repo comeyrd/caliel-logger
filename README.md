@@ -25,3 +25,8 @@ Thu
 Fri
 Sat
 Sun
+
+
+# TODO 
+
+- Serve the caliel.log on a nicely printed website with a nice dynamic table
