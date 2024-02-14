@@ -1,0 +1,63 @@
+<div class="card mb-3">
+    <div class="card-body">
+        <h5 class="card-title">User Loggers</h5>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Cookie</th>
+                    <th>Email</th>
+                    <th>Available Days</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% users.forEach(function(user) { %>
+                    <tr>
+                        <form action="/caliel/edit-logger" method="POST">
+                            <input type="hidden" name="id" value="<%= user.id %>">
+                            <td><%= user.id %></td>
+                            <td>
+                                <div class="card">
+                                    <div class="card-body">
+                                        <input type="password" class="form-control" name="cookie" value="<%= user.cookie %>">
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="card">
+                                    <div class="card-body">
+                                        <input type="email" class="form-control" name="email" value="<%= user.mail %>">
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="card">
+                                    <div class="card-body">
+                                        <% var days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri']; %>
+                                        <% days.forEach(function(day) { %>
+                                            <% if (user.days.includes(day)) { %>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="day-<%= day %>" name="days" value="<%= day %>" checked>
+                                                    <label class="form-check-label" for="day-<%= day %>"><%= day %></label>
+                                                </div>
+                                            <% } else { %>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="day-<%= day %>" name="days" value="<%= day %>">
+                                                    <label class="form-check-label" for="day-<%= day %>"><%= day %></label>
+                                                </div>
+                                            <% } %>
+                                        <% }); %>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <button type="submit" class="btn btn-primary">Save</button>
+                            </td>
+                        </form>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    </div>
+</div>

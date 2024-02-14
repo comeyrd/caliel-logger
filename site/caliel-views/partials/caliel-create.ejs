@@ -1,0 +1,33 @@
+<div class="col-md-6">
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5 class="card-title">User Information</h5>
+            <form action="/caliel/create-logger" method="POST">
+                <div class="mb-3">
+                    <label for="id" class="form-label">ID:</label>
+                    <input type="text" class="form-control" name="id" id="id" value="">
+                </div>
+                <div class="mb-3">
+                    <label for="cookie" class="form-label">Cookie:</label>
+                    <input type="password" class="form-control" name="cookie" id="cookie" value="">
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email:</label>
+                    <input type="email" class="form-control" name="email" id="email" value="">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Available Days:</label>
+                    <% var days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri']; %>
+                    <% days.forEach(function(day) { %>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="day-<%= day %>" name="days" value="<%= day %>">
+                            <label class="form-check-label" for="day-<%= day %>"><%= day %></label>
+                        </div>
+                    <% }); %>
+                </div>
+                <button type="submit" class="btn btn-primary">Create</button>
+            </form>
+            <br>
+        </div>
+    </div>
+</div>
