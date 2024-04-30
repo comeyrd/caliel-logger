@@ -6,28 +6,22 @@
                 <tr>
                     <th>ID</th>
                     <th>Cookie</th>
-                    <th>Email</th>
                     <th>Available Days</th>
-                    <th>Actions</th>
+                    <th>Cookie Validity</th>
+                    <th colspan="2">Actions</th>
                 </tr>
             </thead>
             <tbody>
-                <% users.forEach(function(user) { %>
+                <% caliel_loggers.forEach(function(user) { %>
                     <tr>
-                        <form action="/caliel/edit-logger" method="POST">
-                            <input type="hidden" name="id" value="<%= user.id %>">
-                            <td><%= user.id %></td>
+                        <form action="./caliel/edit-logger" method="POST">
+                            <input type="hidden" name="originurl" value="<%= originurl %>">
+                            <input type="hidden" name="caliel_id" value="<%= user.caliel_id %>">
+                            <td><%= user.caliel_id %></td>
                             <td>
                                 <div class="card">
                                     <div class="card-body">
                                         <input type="password" class="form-control" name="cookie" value="<%= user.cookie %>">
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="card">
-                                    <div class="card-body">
-                                        <input type="email" class="form-control" name="email" value="<%= user.mail %>">
                                     </div>
                                 </div>
                             </td>
@@ -52,9 +46,23 @@
                                 </div>
                             </td>
                             <td>
+                                <% if (user.val_cookie==1){ %>
+                                    Valid
+                                    <% }else{ %>
+                                    Not Valid
+                                    <% } %>
+                            </td>
+                            <td>
                                 <button type="submit" class="btn btn-primary">Save</button>
                             </td>
                         </form>
+                        <td>
+                            <form action="./caliel/test-cookie" method="POST">
+                                <input type="hidden" name="originurl" value="<%= originurl %>">
+                                <input type="hidden" name="caliel_id" value="<%= user.caliel_id %>">
+                            <button type="submit" class="btn btn-primary">Test Cookie</button>
+                            </form>
+                        </td>
                     </tr>
                 <% }); %>
             </tbody>

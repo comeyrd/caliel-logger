@@ -18,14 +18,15 @@
 
 <body>
     <div class="container">
-        <%- include('partials/caliel-settings.ejs') %>.
-
-            <hr>
-            <br>
-            <%- include('partials/caliel-logs.ejs') %>.
-
-
-                
+        <div class="row">
+            <%- include('partials/caliel-alllist.ejs') %>.
+        </div>
+        <div class="row">
+            <%- include('partials/caliel-alllogs.ejs') %>.
+        </div>
+        <div class="row">
+            <%- include('partials/caliel-create.ejs') %>.
+        </div>
     </div>
 
     <!-- Bootstrap JS -->
@@ -33,3 +34,4 @@
 </body>
 
 </html>
+

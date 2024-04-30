@@ -3,6 +3,7 @@
         <div class="card-body">
             <h5 class="card-title">User Information</h5>
             <form action="/caliel/create-logger" method="POST">
+                <input type="hidden" name="originurl" value="<%= originurl %>">
                 <div class="mb-3">
                     <label for="id" class="form-label">ID:</label>
                     <input type="text" class="form-control" name="id" id="id" value="">

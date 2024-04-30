@@ -1,0 +1,23 @@
+<div class="card mb-3">
+    <div class="card-body">
+        <h5 class="card-title">Logs</h5>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Timestamp</th>
+                    <th>Log</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% caliel_logs.forEach(function(log) { %>
+                    <tr>
+                        <td><%= log.nbr %></td>
+                        <td><%= log.timestamp %></td>
+                        <td><%= log.log %></td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    </div>
+</div>
