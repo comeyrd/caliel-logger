@@ -30,7 +30,7 @@
                                     <div class="card-body">
                                         <% var days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri']; %>
                                         <% days.forEach(function(day) { %>
-                                            <% if (user.days.includes(day)) { %>
+                                            <% if (user.days && user.days.includes(day)) { %>
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="checkbox" id="day-<%= day %>" name="days" value="<%= day %>" checked>
                                                     <label class="form-check-label" for="day-<%= day %>"><%= day %></label>
