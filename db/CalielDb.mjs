@@ -16,7 +16,7 @@ class CalielDb {
     await this.#query(`
             CREATE TABLE IF NOT EXISTS ${this.table} (
               id VARCHAR(36) NOT NULL PRIMARY KEY,
-              cookie VARCHAR(255) NOT NULL UNIQUE,
+              cookie VARCHAR(255) NOT NULL,
               mon TINYINT(1) NOT NULL,
               tue TINYINT(1) NOT NULL,
               wed TINYINT(1) NOT NULL,

@@ -42,11 +42,9 @@ router.post('/test-cookie',async (req,res)=>{
     let {caliel_id,originurl} = req.body;
     test_cookie(caliel_id)
   .then(() => {
-    console.log(originurl);
     res.redirect(originurl);
   })
   .catch((error) => {
-    console.log(originurl);
     res.redirect(originurl);
   });
     
@@ -66,6 +64,7 @@ async function test_cookie(id) {
             await cal.validate_cookie(id);
             resolve();
           } else {
+            await cal.log(id,"Cookie not valid");
             reject(new Error(`Cookie request failed with status code: ${cookie_res.statusCode}`));
           }
         });
