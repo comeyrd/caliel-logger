@@ -140,6 +140,7 @@ class CalielDb {
   async delete_logger(id) {
     const query = `DELETE FROM ${this.table} WHERE id = ?`;
     const params = [id];
+    const rows = await this.#query(query, [id]);
   }
   daysToBool(days) {
     const dayValues = {

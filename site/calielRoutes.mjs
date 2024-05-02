@@ -84,11 +84,19 @@ async function get_caliel_obj(id){
     return logger;
 }
 
-async function get_all_caliel(){
-    let loggers = await cal.get_all_logger();
-    loggers.forEach((log) => {
-        log.cookie = "MASKED";
-      });
+async function get_all_caliel(id2uname){
+  let loggers = await cal.get_all_logger();
+  loggers.forEach(function(log) {
+    log.cookie = "MASKED";
+    var correspondingObj = id2uname.find(function(id) {
+      return id.id === log.caliel_id;
+    });
+    if (correspondingObj) {
+      log.username = correspondingObj.username;
+    }else{
+      log.username = " ";
+    }
+  });
     return loggers;
 }
 async function get_all_caliel_logs(){
@@ -106,6 +114,9 @@ async function caliel_setup(mysqlconfig){
     cal = new calieldb(await mysql.createPool(mysqlConfig));
 }
 
+async function delete_logger(id){
+  await cal.delete_logger(id);
+}
 
 export default router;
-export {get_caliel_obj,caliel_setup,get_caliel_logs,get_all_caliel,get_all_caliel_logs};
+export {get_caliel_obj,caliel_setup,get_caliel_logs,get_all_caliel,get_all_caliel_logs,delete_logger};
