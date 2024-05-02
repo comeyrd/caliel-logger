@@ -14,6 +14,8 @@ const mysqlConfig = {
 };
 const cookiename = "REMEMBERME=";
 
+const twomin = 2 * 60 * 1000;
+const sevenmin = 7 * 60 * 1000;
 async function requestGet(url) {
     return new Promise((resolve, reject) => {
         https.get(url, (res) => {
@@ -49,26 +51,44 @@ async function scan(url, options) {
     });
 }
 
+function delay(min, max) {
+    return new Promise(resolve => {
+        const timeout = Math.floor(Math.random() * (max - min + 1)) + min;
+        console.log(timeout);
+        setTimeout(resolve,timeout);
+    });
+}
+
+async function scanWithDelay(cal,url, options, loggerId) {
+    const resp = await scan(url, options);
+    if (resp != 401) {
+        await cal.log(loggerId, "Qr Code Scanned Successfully");
+    } else {
+        await cal.log(loggerId, "Error with the QRcode Scanning");
+    }
+}
+
+
 (async () => {
     try {
 
         const cal = new CalielDb(await mysql.createPool(mysqlConfig));
         const loggers = await cal.today_loggers();
         const response = await requestGet(PASTBIN);
-        for(let i=0;i<loggers.length;i++){
+        const promises = [];
+        for (let i = 0; i < loggers.length; i++) {
             const options = {
                 headers: {
                     'Cookie': cookiename + loggers[i].cookie
                 }
             };
-            const resp = await scan(response.url, options);
-            if(resp !=401){
-                await cal.log(loggers[i].id,"Qr Code Scanned Successfuly");
-            }else{
-                await cal.log(loggers[i].id,"Error with the QRcode Scanning");
-            }
+            promises.push(
+                delay(twomin, sevenmin)
+                    .then(() => scanWithDelay(cal,response.url, options, loggers[i].id))
+            );
         }
-        
+
+        await Promise.all(promises);
     } catch (error) {
         console.error(error);
     } finally {
